@@ -77,9 +77,9 @@ export default function App() {
   }, []);
 
   // ─── Fetch posts from backend on mount
-  useEffect(() => {
+useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [fetchPosts]);
 
   const fetchPosts = async () => {
     setLoadingFeed(true);
