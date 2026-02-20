@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // ─── Config ───────────────────────────────────────────────────────────────────
-const BACKEND_URL = "https://pulse-backend-mob2.onrender.com/"; // Change this if you deploy the backend
+const BACKEND_URL = "https://pulse-backend-mob2.onrender.com"; // Change this if you deploy the backend
 
 // ─── Pulse Logo ───────────────────────────────────────────────────────────────
 const PulseLogo = ({ size = 36 }) => (
