@@ -77,9 +77,11 @@ export default function App() {
   }, []);
 
   // ─── Fetch posts from backend on mount
+// eslint-disable-next-line react-hooks/exhaustive-deps
 useEffect(() => {
     fetchPosts();
-  }, [fetchPosts]);
+  }, []);
+
 
   const fetchPosts = async () => {
     setLoadingFeed(true);
