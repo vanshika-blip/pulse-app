@@ -136,10 +136,24 @@ useEffect(() => {
 
   // ─── OpenAI Comment Generation
   const generate = async () => {
-    if (!apiKey) { showToast("Add OpenAI key in Settings","err"); return; }
     setLoadingAI(true);
     try {
-      const res = await fetch("https://api.openai.com/v1/chat/completions", {
+      const res = await fetch(`${BACKEND_URL}/generate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          platform: selected.platform,
+          authorName: selected.authorName,
+          content: selected.content,
+        }),
+      });
+      if (!res.ok) { const e = await res.json(); throw new Error(e.error || "Generation failed"); }
+      const data = await res.json();
+      setAiComments(data.comments);
+      setChosen(data.comments[0]);
+    } catch(e) { showToast(e.message || "Generation failed","err"); }
+    setLoadingAI(false);
+  };
         method: "POST",
         headers: {
           "Content-Type": "application/json",
