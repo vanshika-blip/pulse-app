@@ -16,9 +16,12 @@ const RedditIcon = () => (<svg width="13" height="13" viewBox="0 0 24 24" fill="
 const LinkedInIcon = () => (<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>);
 
 const PLATFORMS = {
-  twitter:  { name: "X / Twitter", Icon: XIcon,        color: "#1DA1F2" },
-  reddit:   { name: "Reddit",      Icon: RedditIcon,   color: "#FF4500" },
-  linkedin: { name: "LinkedIn",    Icon: LinkedInIcon, color: "#0A66C2" },
+  twitter:           { name: "X / Twitter",                 Icon: XIcon,        color: "#1DA1F2" },
+  reddit:            { name: "Reddit",                      Icon: RedditIcon,   color: "#FF4500" },
+  linkedin:          { name: "LinkedIn",                    Icon: LinkedInIcon, color: "#0A66C2" },
+  reddit_engagement: { name: "Reddit: Employee Engagement", Icon: RedditIcon,   color: "#FF6534" },
+  reddit_survey:     { name: "Reddit: Employee Survey",     Icon: RedditIcon,   color: "#FF8C00" },
+  linkedin_hiring:   { name: "LinkedIn: Hiring Posts",      Icon: LinkedInIcon, color: "#0099CC" },
 };
 
 function timeAgo(iso) {
@@ -178,7 +181,15 @@ const FeedView = memo(({ posts, loadingFeed, feedError, filter, setFilter, fetch
         </div>
       )}
       <div className="filterbar">
-        {[["all","All"],["twitter","X / Twitter"],["reddit","Reddit"],["linkedin","LinkedIn"]].map(([v,l]) => (
+        {[
+  ["all",              "All"],
+  ["twitter",          "X / Twitter"],
+  ["reddit",           "Reddit"],
+  ["linkedin",         "LinkedIn"],
+  ["reddit_engagement","Reddit: Employee Engagement"],
+  ["reddit_survey",    "Reddit: Employee Survey"],
+  ["linkedin_hiring",  "LinkedIn: Hiring Posts"],
+].map(([v, l]) => (
           <button key={v} className={`chip${filter===v?" on":""}`} onClick={() => setFilter(v)}>
             {v!=="all" && (() => { const I=PLATFORMS[v]?.Icon; return I ? <I/> : null; })()}
             {l}
@@ -275,7 +286,7 @@ const SettingsView = memo(({ feedError, posts, fetchPosts, fetchHistory, usernam
     <div className="settings-card">
       <div className="cc-title">Your Name</div>
       <div className="cc-sub">This name appears in History for everyone when you save a comment</div>
-      <input className="inp" type="text" placeholder="e.g. Vanshika"
+      <input className="inp" type="text" placeholder="Your name"
         value={usernameInput} onChange={e => setUsernameInput(e.target.value)}/>
       <button className="save-btn" onClick={saveUsername}>Save Name</button>
     </div>
